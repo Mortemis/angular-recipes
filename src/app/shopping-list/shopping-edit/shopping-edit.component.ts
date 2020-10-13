@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { Ingredient } from 'src/app/shared/ingredient.model';
+import { ShoppingListService } from '../shopping-list.service';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -23,19 +24,19 @@ export class ShoppingEditComponent implements OnInit {
 
 
 
-  constructor() { }
+  constructor(private shopListService: ShoppingListService) { }
 
   ngOnInit(): void {
   }
 
   onAddBtnClick() {
-    this.addBtnClicked.emit(new Ingredient(
+    this.shopListService.addIngredient(new Ingredient(
       this.nameInput.nativeElement.value,
       this.amountInput.nativeElement.value
     ));
   }
 
-  // Нинада так делать, но как?
+  // Don't do this pls anymore
   onClearBtnClick() {
     this.nameInput.nativeElement.value = '';
     this.amountInput.nativeElement.value = '';
